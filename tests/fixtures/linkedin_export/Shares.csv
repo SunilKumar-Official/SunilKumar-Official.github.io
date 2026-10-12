@@ -1,0 +1,5 @@
+Date,ShareLink,ShareCommentary,SharedUrl,MediaUrl,Visibility
+2026-09-30 10:15:00,https://www.linkedin.com/feed/update/urn:li:share:7000000000000000001,"Why dashboards fail
+Most dashboards fail because nobody asked what decision they support. Start with the decision, then pick the metric.",,,MEMBER_NETWORK
+2026-08-12 08:00:00,https://www.linkedin.com/feed/update/urn:li:share:7000000000000000002,"Forecasting call volume two weeks ahead taught me three things about seasonality, holidays, and why a simple baseline beats a clever model more often than you would expect. Here is what I changed in the pipeline and what I stopped doing entirely.",,,MEMBER_NETWORK
+2026-07-01 09:30:00,https://www.linkedin.com/feed/update/urn:li:share:7000000000000000003,,https://example.com/article,,MEMBER_NETWORK

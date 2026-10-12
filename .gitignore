@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# local working files, never published
+.superpowers/
+private/
+
+# third-party reference image (not ours to publish)
+3f679db7dda3bd3fb9bfe4b98e3ddeb3.jpg
+
+# original and intermediate photos; the site uses the web copy in assets/
+photo.png
+transparent_photo.png
+transperant_photo.png
+transparent_photo_corrected.png
+
+# working prompt file
+design_skill.md
+
+# internal notes and design references; kept on this computer only
+docs/
+design-reference/
+__pycache__/
+
+# safety net: raw exports and tool caches
+*.zip
+*LinkedInDataExport*
+.pytest_cache/
+
+# local handover notes, never published
+HANDOVER.md
