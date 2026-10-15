@@ -169,6 +169,7 @@ body.home .site-head{position:absolute;left:0;right:0;top:0}
 .par{border-top:1px solid var(--line)}
 .par>div{display:grid;grid-template-columns:130px 1fr;column-gap:24px;padding:20px 0;border-bottom:1px solid var(--line)}
 .par dt{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);padding-top:6px}
+.cs-summary{margin-bottom:72px}
 .par .res dd{color:var(--white);border-left:2px solid var(--white);padding-left:20px;margin-left:-22px}
 .stage-row .tags{margin-top:26px}
 

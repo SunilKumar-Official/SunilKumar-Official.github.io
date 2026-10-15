@@ -92,6 +92,14 @@ class GeneratePagesTests(unittest.TestCase):
                              "<h2>Limitations &amp; what's next</h2>"):
                 self.assertIn(heading, page, f"{slug} is missing the '{heading}' section")
 
+    def test_each_case_study_opens_with_a_problem_role_result_stack_summary(self):
+        for slug in ("kpi-scoring-pipeline", "customer-support-data-platform", "conversation-intelligence-platform"):
+            page = self.page(f"projects/{slug}")
+            summary = page.split('class="par cs-summary"')[1].split("</dl>")[0]
+            for label in ("Problem", "My role", "Result", "Stack"):
+                self.assertIn(f"<dt>{label}</dt>", summary)
+            self.assertLess(page.index("cs-summary"), page.index('class="cs-body"'))
+
     def test_each_case_study_page_links_back_to_all_projects(self):
         for slug in ("kpi-scoring-pipeline", "customer-support-data-platform", "conversation-intelligence-platform"):
             page = self.page(f"projects/{slug}")
