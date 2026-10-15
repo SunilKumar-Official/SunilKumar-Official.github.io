@@ -130,6 +130,17 @@ class GeneratePagesTests(unittest.TestCase):
         self.assertNotIn('rel="canonical"', page404)
         self.assertIn("That page isn't here.", page404)
 
+    def test_home_and_contact_say_which_roles_sunil_is_open_to(self):
+        for route in ("", "contact"):
+            self.assertIn("Open to Team Lead, Data Engineer and Senior Business Analyst roles.", self.page(route))
+
+    def test_experience_titles_match_the_resume_wording(self):
+        home = self.page("")
+        self.assertIn("<h3>Associate Real Time Analyst</h3>", home)
+        self.assertIn("<h3>Business Intelligence Analyst</h3>", home)
+        self.assertIn("Associate Real Time Analyst", self.page("experience"))
+        self.assertNotIn("Workforce Management Analyst", home)
+
     def test_ten_routes_are_defined(self):
         self.assertEqual(len(generate_pages.PAGES), 10)
 

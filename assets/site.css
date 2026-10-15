@@ -392,3 +392,7 @@ body.home .site-head{position:absolute;left:0;right:0;top:0}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 .skip-h{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.hero-open,.open-to{font-size:15px;line-height:1.5;color:var(--white);margin:18px 0 0}
+.open-to{max-width:34em;margin-bottom:28px}
+.hero-open{max-width:400px}
