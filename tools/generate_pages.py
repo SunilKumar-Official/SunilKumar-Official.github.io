@@ -86,33 +86,51 @@ def body_class(route):
     return "home" if not route else "page-" + route.split("/")[0]
 
 
+SITE = "https://sunilkumar-official.github.io/"
+
+
+def render(shell, footer, route, fragment, title, description, noindex=False):
+    content = read(CONTENT / fragment)
+    url = f"{SITE}{route}/" if route else SITE
+    page = (
+        shell
+        .replace("{{TITLE}}", title)
+        .replace("{{DESCRIPTION}}", description)
+        .replace("{{URL}}", url)
+        .replace("{{BODY_CLASS}}", body_class(route))
+        .replace("{{RAIL_DOTS}}", rail_html(route))
+        .replace("{{NAV_LINKS}}", nav_html(route))
+        .replace("{{MENU_LINKS}}", nav_html(route, [("", "Home")] + NAV_ITEMS))
+        .replace("{{CONTENT}}", content)
+        .replace("{{FOOTER}}", footer)
+    )
+    if noindex:  # the 404 page must not claim to be a canonical, indexable URL
+        page = page.replace(f'<link rel="canonical" href="{url}">', '<meta name="robots" content="noindex">')
+    return page
+
+
 def main(output_root=None):
-    """Generate every page in PAGES. output_root defaults to the repo root (real
-    site files) — pass a temp directory in tests so they never write into the
-    live, tracked site structure."""
+    """Generate every page in PAGES, plus 404.html and sitemap.xml. output_root defaults
+    to the repo root (real site files) — pass a temp directory in tests so they never
+    write into the live, tracked site structure."""
     out_root = Path(output_root) if output_root else ROOT
     shell = read(TEMPLATES / "page_shell.html")
     footer = read(TEMPLATES / "footer.html")
     for route, fragment, title, description in PAGES:
-        content = read(CONTENT / fragment)
-        url = f"https://sunilkumar-official.github.io/{route}/" if route else "https://sunilkumar-official.github.io/"
-        page = (
-            shell
-            .replace("{{TITLE}}", title)
-            .replace("{{DESCRIPTION}}", description)
-            .replace("{{URL}}", url)
-            .replace("{{BODY_CLASS}}", body_class(route))
-            .replace("{{RAIL_DOTS}}", rail_html(route))
-            .replace("{{NAV_LINKS}}", nav_html(route))
-            .replace("{{MENU_LINKS}}", nav_html(route, [("", "Home")] + NAV_ITEMS))
-            .replace("{{CONTENT}}", content)
-            .replace("{{FOOTER}}", footer)
-        )
         out_dir = out_root / route if route else out_root
         out_dir.mkdir(parents=True, exist_ok=True)
         out_path = out_dir / "index.html"
-        out_path.write_text(page, encoding="utf-8")
+        out_path.write_text(render(shell, footer, route, fragment, title, description), encoding="utf-8")
         print(f"wrote {out_path}")
+    (out_root / "404.html").write_text(
+        render(shell, footer, "404", "404.html", "Page not found | Sunil Kumar",
+               "This page does not exist.", noindex=True), encoding="utf-8")
+    urls = "".join(f"  <url><loc>{SITE}{route}/</loc></url>\n" if route else f"  <url><loc>{SITE}</loc></url>\n"
+                   for route, *_ in PAGES)
+    (out_root / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + urls + "</urlset>\n", encoding="utf-8")
+    print("wrote 404.html and sitemap.xml")
 
 
 if __name__ == "__main__":

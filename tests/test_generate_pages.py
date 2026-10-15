@@ -104,6 +104,24 @@ class GeneratePagesTests(unittest.TestCase):
             # no leftover single-page hash links (the skip link's #main is the one allowed anchor)
             self.assertEqual([h for h in __import__("re").findall(r'href="(#[^"]*)"', page) if h != "#main"], [])
 
+    def test_every_page_has_a_self_canonical_and_person_json_ld(self):
+        import json, re
+        for route, _fragment, _title, _desc in generate_pages.PAGES:
+            page = self.page(route)
+            url = f"https://sunilkumar-official.github.io/{route}/" if route else "https://sunilkumar-official.github.io/"
+            self.assertIn(f'<link rel="canonical" href="{url}">', page)
+            ld = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', page, re.S).group(1))
+            self.assertEqual(ld["@type"], "Person")
+
+    def test_sitemap_lists_every_route_and_404_is_noindex(self):
+        sitemap = (self.out / "sitemap.xml").read_text(encoding="utf-8")
+        self.assertEqual(sitemap.count("<loc>"), len(generate_pages.PAGES))
+        self.assertIn("<loc>https://sunilkumar-official.github.io/projects/kpi-scoring-pipeline/</loc>", sitemap)
+        page404 = (self.out / "404.html").read_text(encoding="utf-8")
+        self.assertIn('<meta name="robots" content="noindex">', page404)
+        self.assertNotIn('rel="canonical"', page404)
+        self.assertIn("That page isn't here.", page404)
+
     def test_ten_routes_are_defined(self):
         self.assertEqual(len(generate_pages.PAGES), 10)
 
