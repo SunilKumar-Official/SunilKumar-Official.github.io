@@ -65,16 +65,13 @@ class GeneratePagesTests(unittest.TestCase):
         self.assertIn('id="careerTimeline"', experience)
         self.assertIn("<script src=\"/data/data.js\">", experience)
 
-    def test_testimonials_page_has_rendering_target_and_data_script(self):
-        testimonials = self.page("testimonials")
-        self.assertIn('id="tsGrid"', testimonials)
-        self.assertIn('src="/data/data.js"', testimonials)
-
-    def test_posts_page_has_rendering_target_and_data_script(self):
-        posts = self.page("posts")
-        self.assertIn('id="poList"', posts)
-        self.assertIn('id="poFilters"', posts)
-        self.assertIn('src="/data/data.js"', posts)
+    def test_posts_and_testimonials_are_hidden_until_they_have_content(self):
+        routes = [r for r, *_ in generate_pages.PAGES]
+        self.assertNotIn("posts", routes)
+        self.assertNotIn("testimonials", routes)
+        for route in ("", "about", "contact"):
+            self.assertNotIn('href="/posts/"', self.page(route))
+            self.assertNotIn('href="/testimonials/"', self.page(route))
 
     def test_projects_index_links_to_all_three_case_studies(self):
         index = self.page("projects")
@@ -141,8 +138,8 @@ class GeneratePagesTests(unittest.TestCase):
         self.assertIn("Associate Real Time Analyst", self.page("experience"))
         self.assertNotIn("Workforce Management Analyst", home)
 
-    def test_ten_routes_are_defined(self):
-        self.assertEqual(len(generate_pages.PAGES), 10)
+    def test_eight_routes_are_defined(self):
+        self.assertEqual(len(generate_pages.PAGES), 8)
 
     def test_og_tags_are_present_and_url_is_per_route(self):
         home = self.page("")
@@ -211,9 +208,6 @@ class GeneratePagesTests(unittest.TestCase):
             self.assertEqual(labels, list(expected.values()))
             on = re.findall(r'<a href="[^"]*" class="on" data-label="([^"]+)"', rail)
             self.assertEqual(on, [expected[section]], f"{route or '(root)'} rings the wrong dot")
-        for route in ("testimonials", "posts"):
-            rail = self.page(route).split('<nav class="rail"')[1].split("</nav>")[0]
-            self.assertNotIn('class="on"', rail)
 
     def test_every_page_loads_the_swipe_script_and_it_exists(self):
         for route, _fragment, _title, _desc in generate_pages.PAGES:

@@ -1,7 +1,7 @@
 <article class="case-study">
 <div class="wrap">
 <header class="cs-hdr"><div class="lbl">Case study<u></u>Automation</div><h1>KPI Scoring Pipeline</h1><p class="lede">Every team scored performance its own way. I designed <b>one standardized scoring method</b> and built the pipeline that runs it.</p></header>
-<div class="facts"><div><strong>100+</strong><span>KPI metrics defined</span></div><div><strong>7+</strong><span>operational teams standardized</span></div><div><strong>5 + 3</strong><span>core KPIs and gateway metrics per role</span></div><div><strong>500+</strong><span>automated tests</span></div></div>
+<div class="facts"><div><strong>100+</strong><span>KPI metrics defined</span></div><div><strong>7+</strong><span>operational teams standardized</span></div><div><strong>3</strong><span>gateway metrics per role, plus core KPIs set by each team</span></div><div><strong>500+</strong><span>automated tests</span></div></div>
 <dl class="par cs-summary"><div><dt>Problem</dt><dd>Every team scored performance differently, mostly by hand, so results could not be compared across departments.</dd></div><div><dt>My role</dt><dd>I designed the scoring methodology end to end, agreed it with department stakeholders, and built the pipeline that runs it.</dd></div><div class="res"><dt>Result</dt><dd>One automated method across every team, feeding HR appraisals and Finance incentive payouts and freeing close to a full headcount per team.</dd></div><div><dt>Stack</dt><dd>Python, SQL, Amazon Redshift, pandas</dd></div></dl>
 <div class="cs-body">
 <section class="sec"><h2>Business problem</h2><div class="t">
@@ -14,12 +14,12 @@
 <p>Python and SQL against Amazon Redshift. A local CSV layer holds the KPI definitions (target, weight, direction) per role, since write access to the definitive KPI table wasn't available.</p>
 </div></section>
 <section class="sec"><h2>Scope &amp; scale</h2><div class="t">
-<p>100+ KPI metrics defined across every operational team (Customer Service, Apps, Kiosk, Menu, Website, Technical, Early Life, and others), each role assigned five core KPIs plus three gateway metrics. 500+ automated tests cover the scoring logic and output validation.</p>
+<p>100+ KPI metrics defined across every operational team (Customer Service, Apps, Kiosk, Menu, Website, Technical, Early Life, and others), each role assigned a set of core KPIs (the number varies by team) plus three gateway metrics. 500+ automated tests cover the scoring logic and output validation.</p>
 </div></section>
 <section class="sec"><h2>Approach</h2><div class="t">
 <p>I designed one Combined Performance Score (CPS) methodology that works the same way for every role in every department, replacing the patchwork above:</p>
   <ul>
-    <li>Each role gets five core KPIs, weighted by that department's own stakeholders so the weightings still reflect what actually matters to each team — but the weights must sum to 100%, so they're always comparable.</li>
+    <li>Each role gets a set of core KPIs (the number varies by team), weighted by that department's own stakeholders so the weightings still reflect what actually matters to each team — but the weights must sum to 100%, so they're always comparable.</li>
     <li>Every KPI is converted onto the same scale: achievement percentage (target vs. actual), then multiplied by its weight, then summed into one CPS per person.</li>
     <li>Three gateway metrics per role determine incentive <em>eligibility</em> without touching the CPS calculation itself — so performance measurement and incentive-qualification stay cleanly separate.</li>
     <li>Employees are then stack-ranked: grouped by department, split into gateway-qualified vs. not, and ranked by CPS within each group. I documented a deliberate refinement here too — this ranking approach suits monthly incentive payouts well, but for annual performance reviews, I recommended weighting CPS more heavily than the gateway outcome, so one review cadence doesn't unfairly dominate the other.</li>
@@ -30,7 +30,7 @@
 <p>This replaced a fragmented, inconsistent, largely manual process with one standardized, automated scoring methodology used across every team. It freed close to a full headcount per team that had been spent on manual data-gathering and calculation. The output now feeds HR's monthly and annual appraisal process and Finance's monthly incentive calculations directly — so the accuracy and consistency of this pipeline has a real, direct effect on how people are evaluated and paid.</p>
 </div></section>
 <section class="sec"><h2>Evidence</h2><div class="t">
-<p>Not yet public — no sanitized repository exists for this project yet (a planned follow-up, not available for this round). Private evidence: a 500+-test automated suite, a documented run-validation layer, and the KPI standardization design itself.</p>
+<p>Architecture, diagrams, validation and evaluation notes are public as documentation (no code or data): <a href="https://github.com/SunilKumar-Official/case-study-docs/tree/main/kpi-scoring-pipeline/" rel="noopener">read the kpi scoring pipeline docs</a>.</p>
 </div></section>
 <section class="sec"><h2>Limitations &amp; what's next</h2><div class="t">
 <p>A small number of KPI definitions are still pending a working query — not every metric in the new framework has been fully ported yet. The incentive payout structure for at least one team is still under review as part of the broader rollout, separate from the scoring pipeline itself.</p>
