@@ -1,7 +1,7 @@
 import json
 import unittest
 
-from helpers import common, make_paths, sample_post, sample_project
+from helpers import common, make_paths, sample_career_stage, sample_post, sample_project
 
 
 class StorageTests(unittest.TestCase):
@@ -12,6 +12,7 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(paths.drafts, paths.private / "drafts.json")
         self.assertEqual(paths.data_js, paths.data / "data.js")
         self.assertEqual(paths.discarded, paths.private / "discarded.json")
+        self.assertEqual(paths.career, paths.data / "career.json")
 
     def test_load_json_default_when_missing(self):
         paths, tmp = make_paths()
@@ -56,6 +57,15 @@ class DataJsTests(unittest.TestCase):
         self.assertEqual(payload["projects"], [sample_project()])
         self.assertEqual(payload["testimonials"], [])
         self.assertEqual(text, common.render_data_js(common.load_public(paths)))
+
+    def test_career_flows_through_write_data_js(self):
+        paths, tmp = make_paths()
+        self.addCleanup(tmp.cleanup)
+        common.save_json(paths.career, [sample_career_stage()])
+        common.write_data_js(paths)
+        text = paths.data_js.read_text(encoding="utf-8")
+        payload = json.loads(text[len("window.SITE_DATA = "):].rstrip().rstrip(";"))
+        self.assertEqual(payload["career"], [sample_career_stage()])
 
 
 class DraftsTests(unittest.TestCase):

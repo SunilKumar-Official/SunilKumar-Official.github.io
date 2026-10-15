@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8"><title>icon</title>
+<style>
+@font-face{font-family:"Playfair Display";font-weight:700;src:url(/assets/fonts/playfair-display-700.woff2) format("woff2")}
+html,body{margin:0;background:transparent}
+.i{position:relative;overflow:hidden;background:#000;border-radius:22%;font-family:"Playfair Display",Georgia,serif;font-weight:700;color:#f7f5f1}
+.i b{position:absolute;left:0;top:0;bottom:0;width:17%;background:#f2f0ec}
+.i span{position:absolute;left:17%;right:0;top:0;bottom:0;display:grid;place-items:center;font-size:var(--fs);line-height:1;padding-bottom:6%}
+.i u{position:absolute;left:calc(17% + (83% - 34%)/2);width:34%;height:5.5%;background:#be4330;bottom:21%}
+</style>
+<body><div class="i" id="i"><b></b><span>SK</span><u></u></div>
+<script>
+const q=new URLSearchParams(location.search);const s=+q.get('s')||180;const i=document.getElementById('i');if(q.get('sq'))i.style.borderRadius='0';
+i.style.width=i.style.height=s+'px';i.style.setProperty('--fs',(s*.40)+'px');
+</script>

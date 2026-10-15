@@ -2,14 +2,15 @@ import io
 import unittest
 from contextlib import redirect_stdout
 
-from helpers import common, make_paths, sample_post, sample_project, sample_testimonial
+from helpers import common, make_paths, sample_career_stage, sample_post, sample_project, sample_testimonial
 from tools import check
 
 
-def seed(paths, posts=(), testimonials=(), projects=()):
+def seed(paths, posts=(), testimonials=(), projects=(), career=()):
     common.save_json(paths.posts, list(posts))
     common.save_json(paths.testimonials, list(testimonials))
     common.save_json(paths.projects, list(projects))
+    common.save_json(paths.career, list(career))
     common.write_data_js(paths)
 
 
@@ -32,12 +33,14 @@ class CheckTests(unittest.TestCase):
         self.assertEqual(check.run_checks(self.paths), ([], []))
 
     def test_invalid_records_are_reported_with_their_position_and_name(self):
-        seed(self.paths, [post_n(1, title="x")], [sample_testimonial(consent="")], [sample_project(stack=[])])
+        seed(self.paths, [post_n(1, title="x")], [sample_testimonial(consent="")], [sample_project(stack=[])],
+             [sample_career_stage(summary="")])
         errors, _ = check.run_checks(self.paths)
         text = "\n".join(errors)
         self.assertIn("posts[0] 'x': title", text)
         self.assertIn("testimonials[0] 'Asha Rao': consent", text)
         self.assertIn("projects[0] 'KPI Scoring Pipeline': stack", text)
+        self.assertIn("career[0] 'Customer Experience': summary", text)
 
     def test_hand_added_unconsented_testimonial_is_caught(self):
         seed(self.paths)
@@ -94,6 +97,18 @@ class CheckTests(unittest.TestCase):
         common.write_data_js(self.paths)
         with redirect_stdout(io.StringIO()):
             self.assertEqual(check.main(paths=self.paths), 1)
+
+    def test_career_json_is_included_in_the_data_js_freshness_check(self):
+        seed(self.paths, career=[sample_career_stage()])
+        self.assertEqual(check.run_checks(self.paths), ([], []))
+        common.save_json(self.paths.career, [sample_career_stage(title="Edited after build")])
+        errors, _ = check.run_checks(self.paths)
+        self.assertIn("data/data.js is out of date: run python3 tools/build_data.py", errors)
+
+    def test_career_fields_are_still_scanned_for_email_and_phone(self):
+        seed(self.paths, career=[sample_career_stage(summary="Reach me at someone@example.com")])
+        errors, _ = check.run_checks(self.paths)
+        self.assertTrue(any("email address" in e for e in errors))
 
 
 class HandEditedDataTests(unittest.TestCase):

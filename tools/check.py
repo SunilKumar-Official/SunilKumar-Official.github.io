@@ -67,7 +67,7 @@ def run_checks(paths):
     """Return (errors, warnings), both lists of readable strings."""
     errors, warnings = [], []
     raw, readable = {}, True
-    for key, path in (("posts", paths.posts), ("testimonials", paths.testimonials), ("projects", paths.projects)):
+    for key, path in (("posts", paths.posts), ("testimonials", paths.testimonials), ("projects", paths.projects), ("career", paths.career)):
         raw[key], ok = _load_list(path, errors)
         readable = readable and ok
     # Entries that are not objects are reported and left out of every other check.
@@ -77,7 +77,7 @@ def run_checks(paths):
         errors += [f"{key}[{i}] is not an object" for i, item in enumerate(items) if not isinstance(item, dict)]
     positions = {key: [i for i, item in enumerate(items) if isinstance(item, dict)] for key, items in raw.items()}
 
-    for kind, key in (("post", "posts"), ("testimonial", "testimonials"), ("project", "projects")):
+    for kind, key in (("post", "posts"), ("testimonial", "testimonials"), ("project", "projects"), ("career", "career")):
         for i, item in zip(positions[key], data[key]):
             name = item.get("title") or item.get("name") or "?"
             errors += [f"{key}[{i}] '{name}': {e}" for e in common.validate(kind, item)]
@@ -91,7 +91,7 @@ def run_checks(paths):
         counts = Counter(t for p in data["posts"] for t in p.get("tags", []) if isinstance(t, str))
         warnings += [f"posts: tag '{tag}' is used once (typo?)" for tag, n in sorted(counts.items()) if n == 1]
 
-    for key in ("posts", "testimonials", "projects"):
+    for key in ("posts", "testimonials", "projects", "career"):
         for i, item in zip(positions[key], data[key]):
             for field, text in _strings(item):
                 where = f"{key}[{i}].{field}"
@@ -101,7 +101,7 @@ def run_checks(paths):
                     errors.append(f"{where}: looks like a phone number; reword it if it is not one")
 
     if readable:
-        expected = common.render_data_js({"projects": raw["projects"], "posts": raw["posts"], "testimonials": raw["testimonials"]})
+        expected = common.render_data_js({"projects": raw["projects"], "posts": raw["posts"], "testimonials": raw["testimonials"], "career": raw["career"]})
         if not paths.data_js.exists() or paths.data_js.read_text(encoding="utf-8") != expected:
             errors.append("data/data.js is out of date: run python3 tools/build_data.py")
     return errors, warnings

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Customer Support Data Platform | Sunil Kumar</title>
+<meta name="description" content="Case study: a three-stage Dagster data pipeline, a production incident, and a measured reliability fix.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Customer Support Data Platform | Sunil Kumar">
+<meta property="og:description" content="Case study: a three-stage Dagster data pipeline, a production incident, and a measured reliability fix.">
+<meta property="og:url" content="https://sunilkumar-official.github.io/projects/customer-support-data-platform/">
+<meta property="og:image" content="https://sunilkumar-official.github.io/assets/og-image.png?v=6">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sunil Kumar, Business Intelligence Specialist">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg?v=3" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png?v=3" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=3">
+<link rel="preload" href="/assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/playfair-display-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="page-projects">
+<a class="skip" href="#main">Skip to content</a>
+<nav class="rail" aria-label="Page indicator">
+  <a href="/" data-label="Home" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/about/" data-label="About" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/experience/" data-label="Experience" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/projects/" class="on" data-label="Projects" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/contact/" data-label="Contact" tabindex="-1" aria-hidden="true"><i></i></a>
+</nav>
+<div class="rail-label" aria-hidden="true"><span>Portfolio</span></div>
+<header class="site-head">
+  <a class="mark" href="/">Sunil Kumar</a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/about/">About</a>
+    <a href="/experience/">Experience</a>
+    <a href="/projects/" class="on" aria-current="page">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><i></i><i></i></button>
+</header>
+<div class="menu-sheet" id="menu" hidden>
+  <nav aria-label="Menu">
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/experience/">Experience</a>
+    <a href="/projects/" class="on" aria-current="page">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+  <div class="sub">
+    <a href="https://www.linkedin.com/in/sunilkumar-kannan" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/SunilKumar-Official" target="_blank" rel="noopener">GitHub</a>
+    <a href="/assets/Sunil-Kumar-Resume.pdf" download>Resume (PDF)</a>
+  </div>
+</div>
+<main class="page" id="main">
+<article class="case-study">
+<div class="wrap">
+<header class="cs-hdr"><div class="lbl">Case study<u></u>Data pipeline</div><h1>Customer Support Data Platform</h1><p class="lede">Raw support chats arrive in a shape that changes meaning depending on who is asking. I built the pipeline that turns them into <b>clean, queryable tables</b>, and fixed what broke after it went live.</p></header>
+<div class="facts"><div><strong>180,000+</strong><span>conversations processed</span></div><div><strong>3</strong><span>independent pipeline stages</span></div><div><strong>10</strong><span>relational tables produced</span></div><div><strong>2</strong><span>production problems found and fixed</span></div></div>
+<div class="cs-body">
+<section class="sec"><h2>Business problem</h2><div class="t">
+<p>Raw support-chat conversations arrive one API call at a time, in a source-specific shape that changes meaning depending on who's asking — reporting, workforce planning, and future analysis all need the same clean, structural view of "what happened in this conversation," and none of them should have to re-derive it from the raw API format every time.</p>
+</div></section>
+<section class="sec"><h2>My contribution</h2><div class="t">
+<p>I designed, built, and personally administer the data platform this pipeline runs on — not just the pipeline itself, but the underlying infrastructure (orchestration, storage, access control) my team uses to build and run data work on. Within that platform, I designed and built this specific three-stage pipeline end to end, including finding and fixing two separate real production problems after it went live (detailed below).</p>
+</div></section>
+<section class="sec"><h2>Data &amp; tools</h2><div class="t">
+<p>Dagster (orchestration), Python, Postgres, and the Zoho SalesIQ chat API, inside a self-designed data platform (a shared internal Python package providing storage, validation, and configuration primitives; Postgres and a local LLM runtime available to every project built on it).</p>
+</div></section>
+<section class="sec"><h2>Scope &amp; scale</h2><div class="t">
+<p>180,000+ support conversations processed through the pipeline. Three independently scheduled stages, each a full project in its own right: extraction, a canonical normalization layer, and an enrichment layer producing ten relational tables (conversation facts, message facts, timing/turn-taking facts, and rollup metrics) ready for direct querying by dashboards and future analysis.</p>
+</div></section>
+<section class="sec"><h2>Approach</h2><div class="t">
+<p>I designed this as three independent stages, each reading the one before it only through a stable, read-only contract (a database table or a file layout) — never by importing another stage's code — so each stage can be rebuilt, rescheduled, or fixed without the others needing to change:</p>
+  <ol>
+    <li><b>Extraction</b> pulls raw transcripts from the Zoho API and tracks per-conversation status in a database catalog.</li>
+    <li><b>Canonical</b> parses that raw, source-specific shape into one stable, typed structure per conversation — built once, fully rebuildable from the raw data at any time, so it's never a second source of truth.</li>
+    <li><b>Enrichment</b> turns each canonical conversation into ten relational database tables — conversation-level facts, per-message facts, turn-taking and timing, handoffs between bot and human agents, abandonment detection, and rollup metrics — so downstream reporting can query directly with SQL instead of re-parsing conversation structure every time.</li>
+  </ol>
+  <p>After it went live, I found and fixed two separate real problems, not hypothetical ones:</p>
+  <ul>
+    <li><b>A reliability gap.</b> A five-day extraction outage went unnoticed because failure alerts were being sent but not escalated. I designed and built a watchdog that runs a handful of independent health checks daily and keeps escalating until someone acts — plus a real performance fix, replacing a full-table rewrite on every run with a targeted update once the status table grew large.</li>
+    <li><b>A silent coverage gap.</b> I discovered the live pipeline had only ever been extracting two of six real conversation departments and one of several statuses — thousands of conversations (including an entire WhatsApp channel) had never been captured, with no error raised anywhere, because the original filter was never revisited as the business grew. Fixing it surfaced a genuine data-correctness problem along the way: the chat platform reuses the same conversation identifier across separate WhatsApp contacts with the same customer, so a returning customer's new messages were silently landing inside a conversation record the pipeline already considered "done." I designed a cost-aware fix — a cheap status check for the normal case, and a full refresh only for the much smaller WhatsApp volume where that's actually necessary — rather than re-checking everything the same way regardless of cost.</li>
+  </ul>
+</div></section>
+<section class="sec"><h2>Outcome</h2><div class="t">
+<p>A reliable, fully monitored pipeline that now captures every real conversation channel and status, not just the ones originally configured — closing a gap that had existed silently for months. The extraction window is self-healing by design, and the alerting now escalates until a real person acts on it, instead of a failure going unnoticed for days.</p>
+</div></section>
+<section class="sec"><h2>Evidence</h2><div class="t">
+<p>Not yet public — no sanitized repository exists for this project yet (a planned follow-up, not available for this round).</p>
+</div></section>
+<section class="sec"><h2>Limitations &amp; what's next</h2><div class="t">
+<p>The root cause of one earlier logging gap (a few days with no recorded pipeline runs) is still unconfirmed, though the new monitoring makes a recurrence immediately visible even without knowing the original cause. Backfilling the conversations missed during the multi-month coverage gap is a planned follow-up, separate from the fix itself.</p>
+</div></section>
+</div>
+<div class="next"><div><div class="lbl">Next case study</div><a class="big" href="/projects/conversation-intelligence-platform/">Conversation Intelligence Platform</a></div><a class="btn" href="/projects/">&larr; All projects</a></div>
+</div>
+</article>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-meta">&copy; Sunil Kumar</div>
+  <div class="footer-links">
+    <a href="/assets/Sunil-Kumar-Resume.pdf" download>Resume</a>
+    <a href="/testimonials/">Testimonials</a>
+    <a href="/posts/">Posts</a>
+  </div>
+</footer>
+<script src="/assets/swipe.js" defer></script>
+<script>
+(function(){
+  var btn = document.querySelector('.menu-btn'), sheet = document.getElementById('menu');
+  if (!btn || !sheet) return;
+  function setOpen(open){
+    sheet.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) { var first = sheet.querySelector('a'); if (first) first.focus(); } else { btn.focus(); }
+  }
+  btn.addEventListener('click', function(){ setOpen(sheet.hidden); });
+  sheet.addEventListener('click', function(e){ if (e.target.closest('a')) { sheet.hidden = true; btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; } });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !sheet.hidden) setOpen(false); });
+  window.addEventListener('resize', function(){ if (window.innerWidth > 1024 && !sheet.hidden) setOpen(false); });
+})();
+</script>
+</body>
+</html>

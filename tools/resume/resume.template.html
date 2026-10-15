@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Sunil Kumar - Resume</title>
+
+<style>
+@font-face{font-family:Jost;font-weight:400 600;src:url(../../assets/fonts/jost.woff2) format("woff2")}
+@font-face{font-family:"Playfair Display";font-weight:700;src:url(../../assets/fonts/playfair-display-700.woff2) format("woff2")}
+
+.qr .box svg{width:100%;height:100%;display:block}
+@page{size:A4;margin:0}
+:root{--ink:#1d1d1d;--body:#3a3836;--mute:#7b776f;--line:#d8d4cc;--side:#f2f0eb;--accent:#be4330}
+*{box-sizing:border-box;margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{background:#d9d7d2;font-family:Jost,system-ui,sans-serif;color:var(--body);font-size:9.1pt;line-height:1.4}
+.page{width:210mm;height:297mm;margin:0 auto;background:#fff;display:grid;grid-template-columns:62mm 1fr;overflow:hidden}
+@media print{body{background:#fff}.page{margin:0}}
+aside{background:var(--side);padding:14mm 8mm 10mm 10mm;display:flex;flex-direction:column;gap:6mm}
+h4{font-size:7.3pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:2mm}
+aside ul{list-style:none;padding:0}
+aside li{font-size:8.6pt;line-height:1.5;margin-bottom:1.2mm;word-break:break-word}
+.contact li.lnk{font-size:7.9pt;letter-spacing:-.01em;word-break:normal;white-space:nowrap}
+.contact li b{display:block;font-weight:500;font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-top:2mm}
+.contact li:first-child b{margin-top:0}
+.sk{display:flex;flex-wrap:wrap;gap:1.2mm}
+.sk span{font-size:7.9pt;border:.2mm solid #cfcac1;border-radius:3mm;padding:.4mm 2.2mm;background:#fff;color:var(--body)}
+.edu{border:.25mm dashed #b9b4aa;padding:3mm;font-size:8pt;color:var(--mute);line-height:1.4}
+.qr{margin-top:auto;display:flex;gap:3mm;align-items:center}
+.qr .box{width:22mm;height:22mm;flex:none;border:.25mm solid var(--ink);display:grid;place-items:center;overflow:hidden;font-size:6.5pt;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);background:#fff;text-align:center}
+.qr p{font-size:7.5pt;line-height:1.35;color:var(--body)}
+main{padding:11mm 12mm 8mm 11mm}
+h1{font:700 25pt/1.05 'Playfair Display',serif;color:var(--ink)}
+.tagline{font-size:9.5pt;letter-spacing:.04em;color:var(--accent);margin:2mm 0 4mm;font-weight:500}
+.sum{font-size:9.4pt;line-height:1.45;padding-bottom:3mm;border-bottom:.25mm solid var(--line);margin-bottom:3.5mm}
+h2{font-size:7.6pt;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);margin-bottom:2.4mm;display:flex;align-items:center;gap:2.5mm}
+h2::after{content:'';flex:1;height:.25mm;background:var(--line)}
+.org{margin-bottom:3.4mm}
+.oh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:.25mm solid var(--line);padding-bottom:.8mm;margin-bottom:1.6mm}
+.on{font-size:8.2pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.od{font-size:7.6pt;color:var(--mute)}
+.rl{margin-bottom:1.8mm}
+.rh{display:flex;justify-content:space-between;align-items:baseline;gap:4mm}
+.rh b{font-size:9.6pt;font-weight:600;color:var(--ink)}
+.rh i{font-style:normal;color:var(--mute);font-size:8.3pt;margin-left:2mm}
+.rh i::before{content:"· "}
+.rh em{font-style:normal;font-size:8pt;color:var(--mute);white-space:nowrap}
+.rl ul{padding-left:3.4mm;margin-top:.6mm}.rl li{margin-bottom:.5mm;padding-left:.4mm}
+.sec{margin-bottom:4mm}
+.job.sm{margin-bottom:2.2mm}.job.sm .co{margin-bottom:0}
+.job.grp{margin-bottom:2.6mm}.job.grp .co{margin-bottom:.6mm}.job.grp .jh{margin-bottom:.4mm}.job.grp .jh b{font-size:9.4pt}
+.job.grp .note{font-size:8.5pt;color:var(--body);margin:0 0 .8mm}
+.pr{margin-bottom:2mm}.pr b{color:var(--ink);font-weight:600}.pr em{font-style:normal;color:var(--mute);font-size:8pt}
+</style></head><body>
+<div class="page">
+ <aside>
+  <section class="contact"><h4>Contact</h4><ul>
+   <li><b>Email</b>{{EMAIL}}</li>
+   <li><b>Phone</b>{{PHONE}}</li>
+   <li><b>Location</b>{{LOCATION}}</li>
+   <li class="lnk"><b>LinkedIn</b>linkedin.com/in/sunilkumar-kannan</li>
+   <li class="lnk"><b>GitHub</b>github.com/SunilKumar-Official</li></ul></section>
+  <section><h4>Tools</h4><div class="sk"><span>SQL</span><span>Python</span><span>Amazon Redshift</span><span>Amazon QuickSight</span><span>Dagster</span><span>dbt</span><span>Postgres</span><span>pandas</span></div></section>
+  <section><h4>Strengths</h4><div class="sk"><span>Data modelling</span><span>Dashboard design</span><span>Forecasting</span><span>Workforce management</span><span>Root-cause analysis</span><span>LLM evaluation</span><span>Stakeholder communication</span></div></section>
+  <section><h4>Education</h4><ul><li><b style="font-weight:500;color:var(--ink)">Diploma, Mechanical Engineering</b><br>Sri Nallalaghu Nadar Polytechnic College<br><span style="color:var(--mute)">2013 – 2016</span></li></ul></section>
+  <section><h4>Certifications</h4><ul><li>Six Sigma Yellow Belt</li><li>Six Sigma Green Belt</li></ul></section>
+  <div class="qr"><div class="box">{{QR_SITE_SVG}}</div><p><b style="color:var(--ink);font-weight:600">Scan for the live site</b><br>Case studies, code and docs.</p></div>
+ </aside>
+ <main>
+  <h1>Sunil Kumar</h1>
+  <div class="tagline">Business Intelligence &amp; Data Solutions Specialist</div>
+  <p class="sum">I combine operational understanding, analytics, and data engineering to build reliable data solutions that help businesses measure performance, uncover insights, and make better decisions.</p>
+
+  <section class="sec"><h2>Experience</h2>
+
+   <div class="org"><div class="oh"><span class="on">Foodhub</span><span class="od">Nov 2021 – Present</span></div>
+    <div class="rl"><div class="rh"><span><b>BI Specialist</b><i>Business Intelligence</i></span><em>Jan 2026 – Present</em></div><ul>
+     <li>Deliver monthly performance insights for senior leadership.</li>
+     <li>Designed one standardized Combined Performance Score methodology and built the automated pipeline behind it, replacing a fragmented, manual process and freeing close to a full headcount per team.</li>
+     <li>Designed and administer the data platform the team now builds on.</li></ul></div>
+    <div class="rl"><div class="rh"><span><b>Business Intelligence Analyst</b><i>Business Intelligence</i></span><em>Jun 2023 – Dec 2025</em></div><ul>
+     <li>Authored and maintained 100+ production QuickSight datasets on Redshift, several combining 50+ source tables in one query.</li>
+     <li>Work reaches 150+ downstream dashboards and 300+ analyses across the organization.</li>
+     <li>Automated dashboards and reports; analyzed revenue, customer-behaviour and platform trends.</li></ul></div>
+    <div class="rl"><div class="rh"><span><b>Associate Real Time Analyst</b><i>Workforce Management</i></span><em>Sep 2022 – May 2023</em></div><ul>
+     <li>Forecast contact-centre demand and analyzed agent utilization across queues.</li>
+     <li>Investigated root causes when service levels or staffing fell short.</li></ul></div>
+    <div class="rl"><div class="rh"><span><b>Associate Business Support</b><i>Customer Retention</i></span><em>Nov 2021 – Aug 2022</em></div><ul>
+     <li>Won back unhappy clients by understanding their needs and adding the right software and extra support for their business.</li></ul></div>
+   </div>
+
+   <div class="org"><div class="oh"><span class="on">Sutherland</span><span class="od">Dec 2018 – Jul 2021</span></div>
+    <div class="rl"><div class="rh"><span><b>Associate – CS Phone</b><i>Retention &amp; Sales</i></span><em>Dec 2018 – Jul 2021</em></div><ul>
+     <li>Retained and sold McAfee antivirus software to customers.</li></ul></div>
+   </div>
+
+   <div class="org"><div class="oh"><span class="on">Atech Network Systems Pvt. Ltd.</span><span class="od">Dec 2017 – Dec 2018</span></div>
+    <div class="rl"><div class="rh"><span><b>Customer Service Associate</b><i>Customer Support</i></span><em>Jun 2018 – Dec 2018</em></div></div>
+    <div class="rl"><div class="rh"><span><b>Trainee – Support Executive</b><i>Customer Support</i></span><em>Dec 2017 – Jun 2018</em></div><ul>
+     <li>Arranged UK airport transfers; sourced outside providers and quoted jobs to stay profitable.</li></ul></div>
+   </div>
+
+   <div class="org"><div class="oh"><span class="on">Overseas Marine Services</span><span class="od">Jul 2016 – Jul 2017</span></div>
+    <div class="rl"><div class="rh"><span><b>Supervisor</b><i>Fabrication</i></span><em>Jan 2017 – Jul 2017</em></div><ul>
+     <li>Managed fabrication materials and tools, quality inspection and payroll.</li></ul></div>
+    <div class="rl"><div class="rh"><span><b>Trainee</b><i>Fabrication</i></span><em>Jul 2016 – Dec 2016</em></div></div>
+   </div>
+  </section>
+
+  <section class="sec"><h2>Selected projects</h2>
+   <div class="pr"><b>KPI Scoring Pipeline</b> <em>SQL · Python · Redshift</em><br>One scoring method for every operational team, replacing manual monthly calculations. Feeds HR appraisals and Finance incentive payouts.</div>
+   <div class="pr"><b>Customer Support Data Platform</b> <em>Python · SQL · Dagster</em><br>Turns 180,000+ support chats into clean, queryable tables, with monitoring that escalates until someone acts.</div>
+   <div class="pr"><b>Conversation Intelligence Platform</b> <em>Python · Local LLM</em><br>Chose an LLM by testing consistency, not just accuracy; 92–96.5% exact agreement with human reviewers. Scored 3,500+ production conversations.</div>
+  </section>
+ </main>
+</div>
+<script>(function(){var pg=document.querySelector(".page"),b=pg.getBoundingClientRect().bottom,o=false;pg.querySelectorAll("main *,aside *").forEach(function(e){if(e.getBoundingClientRect().bottom>b+0.5)o=true});document.documentElement.setAttribute("data-fit",o?"overflow":"fits")})()</script></body></html>

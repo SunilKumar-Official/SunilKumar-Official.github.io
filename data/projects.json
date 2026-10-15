@@ -53,18 +53,5 @@
     ],
     "role": "Built",
     "outcome": "Clean datasets, with failures caught early"
-  },
-  {
-    "title": "AI Quality-Review Evaluation",
-    "type": "LLM evaluation",
-    "short": "Tested whether an AI model could automate quality reviews; recommended a better option.",
-    "desc": "Tested whether an AI model could automate quality reviews of support conversations. It was not reliable enough, so I recommended a better alternative instead of rolling it out.",
-    "stack": [
-      "LLM",
-      "Evaluation",
-      "Python"
-    ],
-    "role": "Tested and recommended",
-    "outcome": "Avoided rolling out an unreliable model"
   }
 ]

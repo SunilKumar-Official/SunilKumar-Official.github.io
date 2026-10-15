@@ -10,8 +10,13 @@ class RepoDataTests(unittest.TestCase):
         errors, _warnings = check.run_checks(common.Paths())
         self.assertEqual(errors, [])
 
-    def test_there_are_five_projects(self):
-        self.assertEqual(len(common.load_json(common.Paths().projects, [])), 5)
+    def test_there_are_four_projects(self):
+        # Was 5 until the Conversation Intelligence Platform round: "AI Quality-Review
+        # Evaluation" was an earlier, thinner description of that same work and was
+        # removed once the full case study replaced it, to avoid the two pages
+        # contradicting each other (one said the model wasn't rolled out, the other
+        # says it went to production).
+        self.assertEqual(len(common.load_json(common.Paths().projects, [])), 4)
 
 
 if __name__ == "__main__":

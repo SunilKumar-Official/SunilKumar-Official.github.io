@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projects | Sunil Kumar</title>
+<meta name="description" content="BI and data engineering case studies and projects by Sunil Kumar.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Projects | Sunil Kumar">
+<meta property="og:description" content="BI and data engineering case studies and projects by Sunil Kumar.">
+<meta property="og:url" content="https://sunilkumar-official.github.io/projects/">
+<meta property="og:image" content="https://sunilkumar-official.github.io/assets/og-image.png?v=6">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sunil Kumar, Business Intelligence Specialist">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg?v=3" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png?v=3" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=3">
+<link rel="preload" href="/assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/playfair-display-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="page-projects">
+<a class="skip" href="#main">Skip to content</a>
+<nav class="rail" aria-label="Page indicator">
+  <a href="/" data-label="Home" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/about/" data-label="About" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/experience/" data-label="Experience" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/projects/" class="on" data-label="Projects" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/contact/" data-label="Contact" tabindex="-1" aria-hidden="true"><i></i></a>
+</nav>
+<div class="rail-label" aria-hidden="true"><span>Portfolio</span></div>
+<header class="site-head">
+  <a class="mark" href="/">Sunil Kumar</a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/about/">About</a>
+    <a href="/experience/">Experience</a>
+    <a href="/projects/" class="on" aria-current="page">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><i></i><i></i></button>
+</header>
+<div class="menu-sheet" id="menu" hidden>
+  <nav aria-label="Menu">
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/experience/">Experience</a>
+    <a href="/projects/" class="on" aria-current="page">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+  <div class="sub">
+    <a href="https://www.linkedin.com/in/sunilkumar-kannan" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/SunilKumar-Official" target="_blank" rel="noopener">GitHub</a>
+    <a href="/assets/Sunil-Kumar-Resume.pdf" download>Resume (PDF)</a>
+  </div>
+</div>
+<main class="page" id="main">
+<div class="wrap">
+  <header class="hdr">
+    <div class="lbl">Projects<u></u>Case studies</div>
+    <h1>Selected work</h1>
+    <p class="lede">Real systems, from raw data to decisions. Open a case study for the problem, my part, and what changed.</p>
+  </header>
+
+  <div class="cards3">
+    <a class="card" href="/projects/kpi-scoring-pipeline/">
+      <div class="t"><span>01</span><span>Automation</span></div>
+      <h3>KPI Scoring Pipeline</h3>
+      <p>One scoring method for every operational team, replacing manual monthly calculations. It now feeds HR appraisals and Finance incentive payouts.</p>
+      <div class="tags"><span>SQL</span><span>Python</span><span>Redshift</span><span>pandas</span></div>
+      <div class="go">Read case study <b>&rarr;</b></div>
+    </a>
+    <a class="card" href="/projects/customer-support-data-platform/">
+      <div class="t"><span>02</span><span>Data pipeline</span></div>
+      <h3>Customer Support Data Platform</h3>
+      <p>Turns 180,000+ support chats into clean, queryable tables, with monitoring that escalates until someone acts. Closed a months-long silent coverage gap.</p>
+      <div class="tags"><span>Python</span><span>SQL</span><span>Dagster</span></div>
+      <div class="go">Read case study <b>&rarr;</b></div>
+    </a>
+    <a class="card" href="/projects/conversation-intelligence-platform/">
+      <div class="t"><span>03</span><span>Data &amp; AI</span></div>
+      <h3>Conversation Intelligence Platform</h3>
+      <p>Chose an LLM by testing consistency, not just accuracy, then validated it against human reviewers: 92&ndash;96.5% exact agreement. Scored 3,500+ production conversations.</p>
+      <div class="tags"><span>Python</span><span>Local LLM</span></div>
+      <div class="go">Read case study <b>&rarr;</b></div>
+    </a>
+  </div>
+
+  <section class="more" id="pjMore" hidden>
+    <div class="lbl" id="pjSub">More projects</div>
+    <div class="rows" id="pjTiles"></div>
+  </section>
+</div>
+
+<script src="/data/data.js"></script>
+<script>
+(function(){
+  var CASE_STUDIES = ['KPI Scoring Pipeline', 'Customer Support Data Platform', 'Conversation Intelligence Platform'];
+  var PROJECTS = ((window.SITE_DATA && window.SITE_DATA.projects) || []).filter(function(p){ return CASE_STUDIES.indexOf(p.title) === -1; });
+  function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  if (!PROJECTS.length) return;
+  document.getElementById('pjMore').hidden = false;
+  document.getElementById('pjTiles').innerHTML = PROJECTS.map(function(pr){
+    return '<div class="row"><h4>' + esc(pr.title) + '</h4><p>' + esc(pr.short) + '</p><span class="ty">' + esc(pr.type || '') + '</span></div>';
+  }).join('');
+})();
+</script>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-meta">&copy; Sunil Kumar</div>
+  <div class="footer-links">
+    <a href="/assets/Sunil-Kumar-Resume.pdf" download>Resume</a>
+    <a href="/testimonials/">Testimonials</a>
+    <a href="/posts/">Posts</a>
+  </div>
+</footer>
+<script src="/assets/swipe.js" defer></script>
+<script>
+(function(){
+  var btn = document.querySelector('.menu-btn'), sheet = document.getElementById('menu');
+  if (!btn || !sheet) return;
+  function setOpen(open){
+    sheet.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) { var first = sheet.querySelector('a'); if (first) first.focus(); } else { btn.focus(); }
+  }
+  btn.addEventListener('click', function(){ setOpen(sheet.hidden); });
+  sheet.addEventListener('click', function(e){ if (e.target.closest('a')) { sheet.hidden = true; btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; } });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !sheet.hidden) setOpen(false); });
+  window.addEventListener('resize', function(){ if (window.innerWidth > 1024 && !sheet.hidden) setOpen(false); });
+})();
+</script>
+</body>
+</html>

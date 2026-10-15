@@ -74,3 +74,18 @@ def sample_project(**over):
     }
     p.update(over)
     return p
+
+
+def sample_career_stage(**over):
+    s = {
+        "id": "stage-1",
+        "period": "2018 — 2020",
+        "title": "Customer Experience",
+        "summary": "Customer issues, communication, retention, and problem resolution.",
+        "achievements": [
+            {"problem": "Placeholder problem.", "action": "Placeholder action.", "result": "Placeholder result."}
+        ],
+        "skills": ["Communication", "Problem solving"],
+    }
+    s.update(over)
+    return s

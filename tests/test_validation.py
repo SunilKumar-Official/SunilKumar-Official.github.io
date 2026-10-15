@@ -1,6 +1,6 @@
 import unittest
 
-from helpers import common, make_paths, sample_post, sample_project, sample_testimonial
+from helpers import common, make_paths, sample_career_stage, sample_post, sample_project, sample_testimonial
 
 
 class PostValidationTests(unittest.TestCase):
@@ -90,6 +90,48 @@ class ProjectValidationTests(unittest.TestCase):
         self.assertTrue(common.validate_project(sample_project(stack=[])))
         self.assertTrue(common.validate_project(sample_project(title="")))
         self.assertTrue(common.validate_project(sample_project(link="http://insecure.example")))
+
+
+class CareerValidationTests(unittest.TestCase):
+    def test_valid_career_stage_has_no_errors(self):
+        self.assertEqual(common.validate_career(sample_career_stage()), [])
+
+    def test_required_text_fields(self):
+        for field in ("id", "period", "title", "summary"):
+            with self.subTest(field=field):
+                errors = common.validate_career(sample_career_stage(**{field: ""}))
+                self.assertTrue(any(e.startswith(field) for e in errors), errors)
+                errors = common.validate_career({**sample_career_stage(), field: None})
+                self.assertTrue(any(e.startswith(field) for e in errors), errors)
+
+    def test_achievement_missing_a_required_key_is_reported_with_its_index(self):
+        for key in ("problem", "action", "result"):
+            with self.subTest(key=key):
+                bad = dict(sample_career_stage()["achievements"][0])
+                bad[key] = ""
+                errors = common.validate_career(sample_career_stage(achievements=[bad]))
+                self.assertTrue(any(e.startswith(f"achievements[0].{key}") for e in errors), errors)
+
+    def test_achievement_with_an_unexpected_key_is_reported(self):
+        bad = dict(sample_career_stage()["achievements"][0], extra="nope")
+        errors = common.validate_career(sample_career_stage(achievements=[bad]))
+        self.assertIn("achievements[0].extra: unexpected field", errors)
+
+    def test_empty_achievements_list_is_reported(self):
+        errors = common.validate_career(sample_career_stage(achievements=[]))
+        self.assertTrue(any(e.startswith("achievements:") for e in errors), errors)
+
+    def test_empty_skills_list_is_reported(self):
+        errors = common.validate_career(sample_career_stage(skills=[]))
+        self.assertTrue(any(e.startswith("skills:") for e in errors), errors)
+
+    def test_empty_skill_string_is_reported(self):
+        errors = common.validate_career(sample_career_stage(skills=[""]))
+        self.assertTrue(any(e.startswith("skills:") for e in errors), errors)
+
+    def test_unexpected_field_is_reported(self):
+        errors = common.validate_career(sample_career_stage(colour="red"))
+        self.assertIn("colour: unexpected field", errors)
 
 
 class PublishTests(unittest.TestCase):

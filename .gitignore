@@ -29,3 +29,6 @@ __pycache__/
 
 # local handover notes, never published
 HANDOVER.md
+
+# local Python environment (QR code generation)
+.venv/

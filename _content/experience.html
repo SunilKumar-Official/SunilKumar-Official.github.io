@@ -1,0 +1,44 @@
+<div class="wrap">
+  <header class="hdr">
+    <div class="lbl">Experience<u></u>2017 &ndash; present</div>
+    <h1>From customer calls to data platforms.</h1>
+    <p class="lede">Four stages, one question throughout: what is this number actually for?</p>
+  </header>
+  <div id="careerTimeline"></div>
+  <section class="cta">
+    <h2>See what that looks like in practice.</h2>
+    <div class="acts"><a class="btn" href="/projects/">View projects</a><a class="btn" href="/contact/">Contact me</a></div>
+  </section>
+</div>
+
+<script src="/data/data.js"></script>
+<script>
+(function(){
+  var CAREER = ((window.SITE_DATA && window.SITE_DATA.career) || []).slice().reverse();
+  var ROLES = {
+    'continued-learning': ['BI Specialist', 'Foodhub'],
+    'business-intelligence': ['BI Analyst', 'Foodhub'],
+    'workforce-operations': ['Workforce Management Analyst', 'Foodhub'],
+    'customer-experience': ['Customer service and retention', 'Atech Network Systems · Sutherland · Foodhub']
+  };
+  function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  var root = document.getElementById('careerTimeline');
+  if (!CAREER.length) {
+    root.innerHTML = '<div class="empty-note"><h2>The career timeline will appear here.</h2><p>Check back soon.</p></div>';
+    return;
+  }
+  root.innerHTML = CAREER.map(function(stage, i){
+    var r = ROLES[stage.id];
+    var role = r ? '<div class="role">' + esc(r[0]) + '<u></u>' + esc(r[1]) + '</div>' : '';
+    var a = (stage.achievements || [])[0];
+    var par = a ? '<dl class="par"><div><dt>Problem</dt><dd>' + esc(a.problem) + '</dd></div>' +
+      '<div><dt>What I did</dt><dd>' + esc(a.action) + '</dd></div>' +
+      '<div class="res"><dt>Result</dt><dd>' + esc(a.result) + '</dd></div></dl>' : '';
+    var skills = (stage.skills || []).length ? '<div class="tags">' + stage.skills.map(function(s){ return '<span>' + esc(s) + '</span>'; }).join('') + '</div>' : '';
+    return '<article class="stage-row"><div class="per"><span class="n">' + pad(i + 1) + '</span><span class="y">' + esc(stage.period) + '</span></div>' +
+      '<div class="mk" aria-hidden="true"><i></i></div><div class="cnt">' + role + '<h2>' + esc(stage.title) + '</h2>' +
+      '<p class="sum">' + esc(stage.summary) + '</p>' + par + skills + '</div></article>';
+  }).join('');
+})();
+</script>

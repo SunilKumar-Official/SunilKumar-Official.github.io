@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KPI Scoring Pipeline | Sunil Kumar</title>
+<meta name="description" content="Case study: standardizing a fragmented KPI methodology into one automated scoring pipeline.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="KPI Scoring Pipeline | Sunil Kumar">
+<meta property="og:description" content="Case study: standardizing a fragmented KPI methodology into one automated scoring pipeline.">
+<meta property="og:url" content="https://sunilkumar-official.github.io/projects/kpi-scoring-pipeline/">
+<meta property="og:image" content="https://sunilkumar-official.github.io/assets/og-image.png?v=6">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sunil Kumar, Business Intelligence Specialist">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg?v=3" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png?v=3" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=3">
+<link rel="preload" href="/assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/playfair-display-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="page-projects">
+<a class="skip" href="#main">Skip to content</a>
+<nav class="rail" aria-label="Page indicator">
+  <a href="/" data-label="Home" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/about/" data-label="About" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/experience/" data-label="Experience" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/projects/" class="on" data-label="Projects" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/contact/" data-label="Contact" tabindex="-1" aria-hidden="true"><i></i></a>
+</nav>
+<div class="rail-label" aria-hidden="true"><span>Portfolio</span></div>
+<header class="site-head">
+  <a class="mark" href="/">Sunil Kumar</a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/about/">About</a>
+    <a href="/experience/">Experience</a>
+    <a href="/projects/" class="on" aria-current="page">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><i></i><i></i></button>
+</header>
+<div class="menu-sheet" id="menu" hidden>
+  <nav aria-label="Menu">
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/experience/">Experience</a>
+    <a href="/projects/" class="on" aria-current="page">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+  <div class="sub">
+    <a href="https://www.linkedin.com/in/sunilkumar-kannan" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/SunilKumar-Official" target="_blank" rel="noopener">GitHub</a>
+    <a href="/assets/Sunil-Kumar-Resume.pdf" download>Resume (PDF)</a>
+  </div>
+</div>
+<main class="page" id="main">
+<article class="case-study">
+<div class="wrap">
+<header class="cs-hdr"><div class="lbl">Case study<u></u>Automation</div><h1>KPI Scoring Pipeline</h1><p class="lede">Every team scored performance its own way. I designed <b>one standardized scoring method</b> and built the pipeline that runs it.</p></header>
+<div class="facts"><div><strong>100+</strong><span>KPI metrics defined</span></div><div><strong>7+</strong><span>operational teams standardized</span></div><div><strong>5 + 3</strong><span>core KPIs and gateway metrics per role</span></div><div><strong>500+</strong><span>automated tests</span></div></div>
+<div class="cs-body">
+<section class="sec"><h2>Business problem</h2><div class="t">
+<p>Every team calculated performance differently. Some used a weightage-based model, others a slab-based one; Technical scored people on a point system instead of a percentage; Menu and Website applied "rider" deductions to incentive payouts that other teams didn't have; and Customer Service ran two separate, inconsistent methods — one for its monthly performance review, a different one for incentive payout — inside the same team. One team tracked most of its KPIs by hand in spreadsheets. On top of that, the underlying employee department/role mapping that every team's KPIs depended on had its own gaps and inconsistencies. None of it was comparable across departments, and most of it was calculated manually every month.</p>
+</div></section>
+<section class="sec"><h2>My contribution</h2><div class="t">
+<p>I designed the standardized methodology end to end and built the pipeline that automates it — this wasn't a request to automate someone else's spreadsheet; the scoring model itself (what follows in Approach) is my design, documented and agreed with department stakeholders before being implemented.</p>
+</div></section>
+<section class="sec"><h2>Data &amp; tools</h2><div class="t">
+<p>Python and SQL against Amazon Redshift. A local CSV layer holds the KPI definitions (target, weight, direction) per role, since write access to the definitive KPI table wasn't available.</p>
+</div></section>
+<section class="sec"><h2>Scope &amp; scale</h2><div class="t">
+<p>100+ KPI metrics defined across every operational team (Customer Service, Apps, Kiosk, Menu, Website, Technical, Early Life, and others), each role assigned five core KPIs plus three gateway metrics. 500+ automated tests cover the scoring logic and output validation.</p>
+</div></section>
+<section class="sec"><h2>Approach</h2><div class="t">
+<p>I designed one Combined Performance Score (CPS) methodology that works the same way for every role in every department, replacing the patchwork above:</p>
+  <ul>
+    <li>Each role gets five core KPIs, weighted by that department's own stakeholders so the weightings still reflect what actually matters to each team — but the weights must sum to 100%, so they're always comparable.</li>
+    <li>Every KPI is converted onto the same scale: achievement percentage (target vs. actual), then multiplied by its weight, then summed into one CPS per person.</li>
+    <li>Three gateway metrics per role determine incentive <em>eligibility</em> without touching the CPS calculation itself — so performance measurement and incentive-qualification stay cleanly separate.</li>
+    <li>Employees are then stack-ranked: grouped by department, split into gateway-qualified vs. not, and ranked by CPS within each group. I documented a deliberate refinement here too — this ranking approach suits monthly incentive payouts well, but for annual performance reviews, I recommended weighting CPS more heavily than the gateway outcome, so one review cadence doesn't unfairly dominate the other.</li>
+  </ul>
+  <p>On the engineering side: the pipeline matches employees to their KPI definitions, runs one validated SQL query per metric, computes CPS and rank, and writes a full run manifest and log so every run is traceable. A dedicated validation layer checks the output itself for problems — nulls, duplicates, wrong types, out-of-range values, unregistered metrics, missing audience coverage — and it has caught real data issues before they reached a report, including a case where a production query claimed to filter a field it actually didn't.</p>
+</div></section>
+<section class="sec"><h2>Outcome</h2><div class="t">
+<p>This replaced a fragmented, inconsistent, largely manual process with one standardized, automated scoring methodology used across every team. It freed close to a full headcount per team that had been spent on manual data-gathering and calculation. The output now feeds HR's monthly and annual appraisal process and Finance's monthly incentive calculations directly — so the accuracy and consistency of this pipeline has a real, direct effect on how people are evaluated and paid.</p>
+</div></section>
+<section class="sec"><h2>Evidence</h2><div class="t">
+<p>Not yet public — no sanitized repository exists for this project yet (a planned follow-up, not available for this round). Private evidence: a 500+-test automated suite, a documented run-validation layer, and the KPI standardization design itself.</p>
+</div></section>
+<section class="sec"><h2>Limitations &amp; what's next</h2><div class="t">
+<p>A small number of KPI definitions are still pending a working query — not every metric in the new framework has been fully ported yet. The incentive payout structure for at least one team is still under review as part of the broader rollout, separate from the scoring pipeline itself.</p>
+</div></section>
+</div>
+<div class="next"><div><div class="lbl">Next case study</div><a class="big" href="/projects/customer-support-data-platform/">Customer Support Data Platform</a></div><a class="btn" href="/projects/">&larr; All projects</a></div>
+</div>
+</article>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-meta">&copy; Sunil Kumar</div>
+  <div class="footer-links">
+    <a href="/assets/Sunil-Kumar-Resume.pdf" download>Resume</a>
+    <a href="/testimonials/">Testimonials</a>
+    <a href="/posts/">Posts</a>
+  </div>
+</footer>
+<script src="/assets/swipe.js" defer></script>
+<script>
+(function(){
+  var btn = document.querySelector('.menu-btn'), sheet = document.getElementById('menu');
+  if (!btn || !sheet) return;
+  function setOpen(open){
+    sheet.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) { var first = sheet.querySelector('a'); if (first) first.focus(); } else { btn.focus(); }
+  }
+  btn.addEventListener('click', function(){ setOpen(sheet.hidden); });
+  sheet.addEventListener('click', function(e){ if (e.target.closest('a')) { sheet.hidden = true; btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; } });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !sheet.hidden) setOpen(false); });
+  window.addEventListener('resize', function(){ if (window.innerWidth > 1024 && !sheet.hidden) setOpen(false); });
+})();
+</script>
+</body>
+</html>

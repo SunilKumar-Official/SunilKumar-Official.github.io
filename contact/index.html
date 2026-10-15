@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact | Sunil Kumar</title>
+<meta name="description" content="Get in touch with Sunil Kumar on LinkedIn or GitHub.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact | Sunil Kumar">
+<meta property="og:description" content="Get in touch with Sunil Kumar on LinkedIn or GitHub.">
+<meta property="og:url" content="https://sunilkumar-official.github.io/contact/">
+<meta property="og:image" content="https://sunilkumar-official.github.io/assets/og-image.png?v=6">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sunil Kumar, Business Intelligence Specialist">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg?v=3" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png?v=3" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=3">
+<link rel="preload" href="/assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/playfair-display-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="page-contact">
+<a class="skip" href="#main">Skip to content</a>
+<nav class="rail" aria-label="Page indicator">
+  <a href="/" data-label="Home" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/about/" data-label="About" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/experience/" data-label="Experience" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/projects/" data-label="Projects" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/contact/" class="on" data-label="Contact" tabindex="-1" aria-hidden="true"><i></i></a>
+</nav>
+<div class="rail-label" aria-hidden="true"><span>Portfolio</span></div>
+<header class="site-head">
+  <a class="mark" href="/">Sunil Kumar</a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/about/">About</a>
+    <a href="/experience/">Experience</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/" class="on" aria-current="page">Contact</a>
+  </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><i></i><i></i></button>
+</header>
+<div class="menu-sheet" id="menu" hidden>
+  <nav aria-label="Menu">
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/experience/">Experience</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/" class="on" aria-current="page">Contact</a>
+  </nav>
+  <div class="sub">
+    <a href="https://www.linkedin.com/in/sunilkumar-kannan" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/SunilKumar-Official" target="_blank" rel="noopener">GitHub</a>
+    <a href="/assets/Sunil-Kumar-Resume.pdf" download>Resume (PDF)</a>
+  </div>
+</div>
+<main class="page" id="main">
+<section class="contact">
+  <div class="contact-copy">
+    <div class="lbl">Contact<u></u>Get in touch</div>
+    <h1>Have a question or idea?</h1>
+    <p class="lede">I&rsquo;ll love to hear from you! Get in touch, and let&rsquo;s make it happen.</p>
+    <div class="links">
+      <a class="link-row" href="https://www.linkedin.com/in/sunilkumar-kannan" target="_blank" rel="noopener"><div><b>LinkedIn</b><span>linkedin.com/in/sunilkumar-kannan</span></div><i aria-hidden="true">&nearr;</i></a>
+      <a class="link-row" href="https://github.com/SunilKumar-Official" target="_blank" rel="noopener"><div><b>GitHub</b><span>github.com/SunilKumar-Official</span></div><i aria-hidden="true">&nearr;</i></a>
+      <a class="link-row" href="/assets/Sunil-Kumar-Resume.pdf" download><div><b>Resume</b><span>PDF &middot; 1 page</span></div><i aria-hidden="true">&darr;</i></a>
+    </div>
+    <div class="qr">
+      <img src="/assets/qr-resume.svg" width="104" height="104" alt="QR code that downloads my resume as a PDF">
+      <p><b>Scan to download</b>Point your phone&rsquo;s camera at the code to get my resume as a PDF.</p>
+    </div>
+  </div>
+  <img class="contact-photo" src="/assets/portrait.jpg" width="1066" height="1600" alt="">
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-meta">&copy; Sunil Kumar</div>
+  <div class="footer-links">
+    <a href="/assets/Sunil-Kumar-Resume.pdf" download>Resume</a>
+    <a href="/testimonials/">Testimonials</a>
+    <a href="/posts/">Posts</a>
+  </div>
+</footer>
+<script src="/assets/swipe.js" defer></script>
+<script>
+(function(){
+  var btn = document.querySelector('.menu-btn'), sheet = document.getElementById('menu');
+  if (!btn || !sheet) return;
+  function setOpen(open){
+    sheet.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) { var first = sheet.querySelector('a'); if (first) first.focus(); } else { btn.focus(); }
+  }
+  btn.addEventListener('click', function(){ setOpen(sheet.hidden); });
+  sheet.addEventListener('click', function(e){ if (e.target.closest('a')) { sheet.hidden = true; btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; } });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !sheet.hidden) setOpen(false); });
+  window.addEventListener('resize', function(){ if (window.innerWidth > 1024 && !sheet.hidden) setOpen(false); });
+})();
+</script>
+</body>
+</html>

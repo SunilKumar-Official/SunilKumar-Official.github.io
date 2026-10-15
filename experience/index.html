@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Experience | Sunil Kumar</title>
+<meta name="description" content="Sunil Kumar's career progression from customer service through Business Intelligence.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Experience | Sunil Kumar">
+<meta property="og:description" content="Sunil Kumar's career progression from customer service through Business Intelligence.">
+<meta property="og:url" content="https://sunilkumar-official.github.io/experience/">
+<meta property="og:image" content="https://sunilkumar-official.github.io/assets/og-image.png?v=6">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sunil Kumar, Business Intelligence Specialist">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg?v=3" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png?v=3" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=3">
+<link rel="preload" href="/assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/playfair-display-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="page-experience">
+<a class="skip" href="#main">Skip to content</a>
+<nav class="rail" aria-label="Page indicator">
+  <a href="/" data-label="Home" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/about/" data-label="About" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/experience/" class="on" data-label="Experience" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/projects/" data-label="Projects" tabindex="-1" aria-hidden="true"><i></i></a>
+  <a href="/contact/" data-label="Contact" tabindex="-1" aria-hidden="true"><i></i></a>
+</nav>
+<div class="rail-label" aria-hidden="true"><span>Portfolio</span></div>
+<header class="site-head">
+  <a class="mark" href="/">Sunil Kumar</a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/about/">About</a>
+    <a href="/experience/" class="on" aria-current="page">Experience</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><i></i><i></i></button>
+</header>
+<div class="menu-sheet" id="menu" hidden>
+  <nav aria-label="Menu">
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/experience/" class="on" aria-current="page">Experience</a>
+    <a href="/projects/">Projects</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+  <div class="sub">
+    <a href="https://www.linkedin.com/in/sunilkumar-kannan" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/SunilKumar-Official" target="_blank" rel="noopener">GitHub</a>
+    <a href="/assets/Sunil-Kumar-Resume.pdf" download>Resume (PDF)</a>
+  </div>
+</div>
+<main class="page" id="main">
+<div class="wrap">
+  <header class="hdr">
+    <div class="lbl">Experience<u></u>2017 &ndash; present</div>
+    <h1>From customer calls to data platforms.</h1>
+    <p class="lede">Four stages, one question throughout: what is this number actually for?</p>
+  </header>
+  <div id="careerTimeline"></div>
+  <section class="cta">
+    <h2>See what that looks like in practice.</h2>
+    <div class="acts"><a class="btn" href="/projects/">View projects</a><a class="btn" href="/contact/">Contact me</a></div>
+  </section>
+</div>
+
+<script src="/data/data.js"></script>
+<script>
+(function(){
+  var CAREER = ((window.SITE_DATA && window.SITE_DATA.career) || []).slice().reverse();
+  var ROLES = {
+    'continued-learning': ['BI Specialist', 'Foodhub'],
+    'business-intelligence': ['BI Analyst', 'Foodhub'],
+    'workforce-operations': ['Workforce Management Analyst', 'Foodhub'],
+    'customer-experience': ['Customer service and retention', 'Atech Network Systems · Sutherland · Foodhub']
+  };
+  function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  var root = document.getElementById('careerTimeline');
+  if (!CAREER.length) {
+    root.innerHTML = '<div class="empty-note"><h2>The career timeline will appear here.</h2><p>Check back soon.</p></div>';
+    return;
+  }
+  root.innerHTML = CAREER.map(function(stage, i){
+    var r = ROLES[stage.id];
+    var role = r ? '<div class="role">' + esc(r[0]) + '<u></u>' + esc(r[1]) + '</div>' : '';
+    var a = (stage.achievements || [])[0];
+    var par = a ? '<dl class="par"><div><dt>Problem</dt><dd>' + esc(a.problem) + '</dd></div>' +
+      '<div><dt>What I did</dt><dd>' + esc(a.action) + '</dd></div>' +
+      '<div class="res"><dt>Result</dt><dd>' + esc(a.result) + '</dd></div></dl>' : '';
+    var skills = (stage.skills || []).length ? '<div class="tags">' + stage.skills.map(function(s){ return '<span>' + esc(s) + '</span>'; }).join('') + '</div>' : '';
+    return '<article class="stage-row"><div class="per"><span class="n">' + pad(i + 1) + '</span><span class="y">' + esc(stage.period) + '</span></div>' +
+      '<div class="mk" aria-hidden="true"><i></i></div><div class="cnt">' + role + '<h2>' + esc(stage.title) + '</h2>' +
+      '<p class="sum">' + esc(stage.summary) + '</p>' + par + skills + '</div></article>';
+  }).join('');
+})();
+</script>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-meta">&copy; Sunil Kumar</div>
+  <div class="footer-links">
+    <a href="/assets/Sunil-Kumar-Resume.pdf" download>Resume</a>
+    <a href="/testimonials/">Testimonials</a>
+    <a href="/posts/">Posts</a>
+  </div>
+</footer>
+<script src="/assets/swipe.js" defer></script>
+<script>
+(function(){
+  var btn = document.querySelector('.menu-btn'), sheet = document.getElementById('menu');
+  if (!btn || !sheet) return;
+  function setOpen(open){
+    sheet.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) { var first = sheet.querySelector('a'); if (first) first.focus(); } else { btn.focus(); }
+  }
+  btn.addEventListener('click', function(){ setOpen(sheet.hidden); });
+  sheet.addEventListener('click', function(e){ if (e.target.closest('a')) { sheet.hidden = true; btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; } });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !sheet.hidden) setOpen(false); });
+  window.addEventListener('resize', function(){ if (window.innerWidth > 1024 && !sheet.hidden) setOpen(false); });
+})();
+</script>
+</body>
+</html>

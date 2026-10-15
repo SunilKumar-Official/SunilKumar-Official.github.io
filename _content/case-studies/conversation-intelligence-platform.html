@@ -1,0 +1,37 @@
+<article class="case-study">
+<div class="wrap">
+<header class="cs-hdr"><div class="lbl">Case study<u></u>Data &amp; AI</div><h1>Conversation Intelligence Platform</h1><p class="lede"><b>Judging the meaning of a support conversation</b> with naive automation gives confident answers that are often wrong. I built the pipeline and the evaluation that shows which model you can trust.</p></header>
+<div class="facts"><div><strong>3,500+</strong><span>conversations scored in production</span></div><div><strong>300+</strong><span>automated tests</span></div><div><strong>200</strong><span>conversations human-validated</span></div><div><strong>92–96.5%</strong><span>exact agreement with reviewers</span></div></div>
+<div class="cs-body">
+<section class="sec"><h2>Business problem</h2><div class="t">
+<p>Understanding support-conversation quality — was this resolved, how frustrated was the customer, was the agent's handling good — needs more than counting messages and timestamps. But judging the <em>meaning</em> of a conversation with naive automation (keyword matching, simple rules) produces confident-looking answers that are often wrong, which is worse for a business than not measuring it at all. And once you bring in a real language model to make that judgment, a new problem appears: which model, and how do you know you can trust it?</p>
+</div></section>
+<section class="sec"><h2>My contribution</h2><div class="t">
+<p>I designed the full architecture — the deterministic feature layer and the LLM judgment layer built on top of it — and built both halves myself. For the LLM half specifically, I didn't just wire up a model and ship it: I built a proper evaluation harness, benchmarked multiple model sizes against hand-labeled ground truth, and validated the model I chose against real human reviewers before running it on production data.</p>
+</div></section>
+<section class="sec"><h2>Data &amp; tools</h2><div class="t">
+<p>Python, the Zoho SalesIQ chat API, and local LLM inference (no cloud API) — multiple open-weight models run through a local CPU-based runtime, chosen and validated through direct benchmarking rather than assumption.</p>
+</div></section>
+<section class="sec"><h2>Scope &amp; scale</h2><div class="t">
+<p>A verified, zero-exception deterministic feature pipeline across thousands of real support conversations, feeding a dozen independent feature modules (timing, turn-taking, message statistics, linguistic style, readability, PII detection). On top of that: a full model evaluation (three model sizes, 100 hand-labeled test conversations each), a 200-conversation human validation study across multiple reviewers, and a production run scoring 3,500+ real conversations. 300+ automated tests.</p>
+</div></section>
+<section class="sec"><h2>Approach</h2><div class="t">
+<p>I architected this as a strict tier system: shared data models, a parsing/cleaning layer, independent feature modules that each compute one category of fact, and a final aggregation layer that's the only place allowed to combine them — a deliberate choice to keep anything requiring real judgment (was the customer satisfied? was the issue actually resolved?) out of the deterministic layer, since a keyword or regex rule can't reliably answer those and a confident-but-wrong answer is worse than an honest "not computed yet."</p>
+  <p>That judgment became the LLM layer's job, and I didn't take the choice of model on faith. I built an evaluation harness that measures a model on five separate axes — raw accuracy against hand-labeled examples, output validity (does it even return well-formed, correctly typed JSON), summary quality, run-to-run consistency (the same conversation analyzed three times — does it give the same answer each time?), and eventually confidence itself (how certain was the model at the exact token where it made a judgment call?).</p>
+  <p>That last axis is what actually decided the model choice, and it's worth explaining why. The larger of two candidate models scored higher on raw accuracy, but was noticeably less consistent — rerun the same conversation and it would shift its judgment more often than the smaller model did. Rather than just picking the more accurate model and hoping for the best, I dug into <em>why</em> it was less consistent: I measured the model's own token-level confidence at the exact moment it made each sentiment judgment, and found the larger model was genuinely, measurably less certain at those specific points — not randomly noisier, but actually more torn between plausible answers, and most torn exactly where you'd expect (judging a customer's mood early in a conversation, before the outcome is clear). That confirmed consistency was the right thing to optimize for, not just a quirk to ignore, and the smaller, more consistent model went to production.</p>
+  <p>Before trusting that choice, I ran a 200-conversation human validation study — real reviewers checking the model's output against their own judgment on real production data, not just the synthetic test set used for model selection.</p>
+</div></section>
+<section class="sec"><h2>Outcome</h2><div class="t">
+<p>A working, validated LLM analysis stage, not just a research plan: a model chosen through real benchmarking and confirmed through real human review, which scored thousands of real conversations in production. The human validation showed strong agreement with real reviewers (92-96.5% exact match per judgment, 98%+ within one point of the human reviewer's score) and 86% exact agreement across every dimension checked at once, and surfaced a specific, small, consistent bias — the model skewing slightly positive on customer sentiment relative to human reviewers — which is now documented rather than hidden.</p>
+  <p>The project is currently paused. What exists is a complete, evaluated pipeline from raw conversation to validated semantic judgment, with the evaluation methodology itself (the five-axis harness, the confidence-based diagnosis) being as much a result as the pipeline it was built to validate.</p>
+</div></section>
+<section class="sec"><h2>Evidence</h2><div class="t">
+<p>Not yet public — no sanitized repository exists for this project yet (a planned follow-up, not available for this round).</p>
+</div></section>
+<section class="sec"><h2>Limitations &amp; what's next</h2><div class="t">
+<p>The project is currently paused, not actively being extended. A prompt-wording improvement found during evaluation was never promoted into the production run that scored the real conversations — a known, documented gap, not something hidden. Real-world latency on actual support transcripts ran meaningfully higher than the synthetic benchmark predicted, since real conversations are longer than the hand-labeled test set — worth knowing before scaling this to a larger corpus.</p>
+</div></section>
+</div>
+<div class="next"><div><div class="lbl">Next case study</div><a class="big" href="/projects/kpi-scoring-pipeline/">KPI Scoring Pipeline</a></div><a class="btn" href="/projects/">&larr; All projects</a></div>
+</div>
+</article>

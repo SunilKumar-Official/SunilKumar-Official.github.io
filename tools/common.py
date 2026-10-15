@@ -12,6 +12,8 @@ CONSENT_VALUES = ("written", "public-linkedin")
 POST_FIELDS = ("id", "source", "sourceLabel", "title", "excerpt", "date", "url", "tags")
 TESTIMONIAL_FIELDS = ("id", "name", "role", "company", "quote", "date", "consent", "sourceUrl")
 PROJECT_FIELDS = ("title", "type", "short", "desc", "stack", "role", "outcome", "link")
+CAREER_FIELDS = ("id", "period", "title", "summary", "achievements", "skills")
+ACHIEVEMENT_FIELDS = ("problem", "action", "result")
 DRAFT_ONLY_FIELDS = ("kind", "status", "note")
 OPTIONAL_URL_FIELDS = ("sourceUrl", "link")
 
@@ -35,6 +37,7 @@ class Paths:
         self.posts = self.data / "posts.json"
         self.testimonials = self.data / "testimonials.json"
         self.projects = self.data / "projects.json"
+        self.career = self.data / "career.json"
         self.data_js = self.data / "data.js"
 
 
@@ -102,6 +105,7 @@ def load_public(paths):
         "projects": load_json(paths.projects, []),
         "posts": load_json(paths.posts, []),
         "testimonials": load_json(paths.testimonials, []),
+        "career": load_json(paths.career, []),
     }
 
 
@@ -210,7 +214,33 @@ def validate_project(d):
     return errors
 
 
-VALIDATORS = {"post": validate_post, "testimonial": validate_testimonial, "project": validate_project}
+def validate_career(d):
+    errors = []
+    for key in ("id", "period", "title", "summary"):
+        _required(d, key, errors)
+    achievements = d.get("achievements")
+    if not isinstance(achievements, list) or not achievements:
+        errors.append("achievements: need a non-empty list")
+    else:
+        for i, a in enumerate(achievements):
+            if not isinstance(a, dict):
+                errors.append(f"achievements[{i}]: must be an object")
+                continue
+            for key in ACHIEVEMENT_FIELDS:
+                value = a.get(key)
+                if not isinstance(value, str) or not value.strip():
+                    errors.append(f"achievements[{i}].{key}: required")
+            for key in a:
+                if key not in ACHIEVEMENT_FIELDS:
+                    errors.append(f"achievements[{i}].{key}: unexpected field")
+    skills = d.get("skills")
+    if not isinstance(skills, list) or not skills or not all(isinstance(s, str) and s.strip() for s in skills):
+        errors.append("skills: need a non-empty list of names")
+    _unexpected(d, CAREER_FIELDS, errors)
+    return errors
+
+
+VALIDATORS = {"post": validate_post, "testimonial": validate_testimonial, "project": validate_project, "career": validate_career}
 
 
 def validate(kind, entry):
