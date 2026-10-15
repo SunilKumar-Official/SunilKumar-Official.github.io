@@ -15,34 +15,6 @@ window.SITE_DATA = {
       "outcome": "Replaced a manual monthly process"
     },
     {
-      "title": "Daily KPI Email Report",
-      "type": "Reporting automation",
-      "short": "Daily performance report for three countries, built and emailed automatically.",
-      "desc": "Automated the daily performance report for three countries: pulls the numbers, builds the charts and emails leadership each morning without manual work.",
-      "stack": [
-        "Python",
-        "PostgreSQL",
-        "matplotlib",
-        "Jinja2"
-      ],
-      "role": "Built and automated",
-      "outcome": "Leadership reports arrive daily, hands-free"
-    },
-    {
-      "title": "Call Volume Forecasting",
-      "type": "Forecasting",
-      "short": "Predicts contact-centre call volume two weeks ahead to plan staffing and schedules.",
-      "desc": "A forecasting tool that predicts contact-centre call volume two weeks ahead, helping plan staffing and schedules in advance.",
-      "stack": [
-        "Python",
-        "pandas",
-        "LightGBM",
-        "scikit-learn"
-      ],
-      "role": "Built",
-      "outcome": "Staffing planned two weeks ahead"
-    },
-    {
       "title": "Customer Support Data Platform",
       "type": "Data pipeline",
       "short": "Turns raw support chats into clean, reliable datasets, with automatic failure monitoring.",
